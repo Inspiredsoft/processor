@@ -1,0 +1,86 @@
+<!-- 
+/*******************************************************************************
+* Inspired Processor is a framework to implement a processor manager.
+* Copyright (C) 2017 Inspired Soft
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.    
+*******************************************************************************/
+ -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.inspiredsoft.it/schema/workflow"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	targetNamespace="http://www.inspiredsoft.it/schema/workflow"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xsd:import namespace="http://www.springframework.org/schema/beans" />
+
+	<xsd:element name="activity">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="parameter" maxOccurs="unbounded" minOccurs="0">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute type="xsd:string" name="name" use="required" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute type="xsd:string" name="class" use="required" />
+			<xsd:attribute type="xsd:string" name="method" use="optional" />
+			<xsd:attribute type="xsd:string" name="result" use="optional" />
+			<xsd:attribute type="xsd:string" name="errorHandler" use="optional" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="workflow">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice maxOccurs="unbounded" minOccurs="1">
+					<xsd:element name="sequence">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element ref="activity" maxOccurs="unbounded" minOccurs="1"/>
+							</xsd:sequence>
+							<xsd:attribute type="xsd:ID" name="id" />
+							<xsd:attribute type="xsd:string" use="optional"
+								name="name" />
+							<xsd:attribute type="xsd:string" use="optional"
+								name="errorHandler" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="concurrent">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element ref="activity" maxOccurs="unbounded" minOccurs="1"/>
+							</xsd:sequence>
+							<xsd:attribute type="xsd:ID" name="id" />
+							<xsd:attribute type="xsd:string" use="optional"
+								name="name" />
+							<xsd:attribute type="xsd:string" use="optional"
+								name="errorHandler" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute type="xsd:ID" name="id" />
+			<xsd:attribute type="xsd:string" name="name" use="optional" />
+			<xsd:attribute type="xsd:string" name="errorHandler"
+				use="optional" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

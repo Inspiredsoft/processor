@@ -1,0 +1,78 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="defaultErrorHandler" class="it.inspired.wf.impl.ConsoleErrorHandler" />
+
+	<bean id="calculator" class="it.inspired.wf.Calculator" />
+
+	<bean id="activity1" class="it.inspired.wf.impl.DelegateActivity">
+		<property name="delegate" ref="calculator" />
+		<property name="method" value="sum" />
+		<property name="parameters">
+			<list>
+				<value>addendum1</value>
+				<value>addendum2</value>
+			</list>
+		</property>
+		<property name="resultParameter" value="sum1" />
+	</bean>
+
+	<bean id="activity2" class="it.inspired.wf.impl.DelegateActivity">
+		<property name="delegate" ref="calculator" />
+		<property name="method" value="sum" />
+		<property name="parameters">
+			<list>
+				<value>sum1</value>
+				<value>sum1</value>
+			</list>
+		</property>
+		<property name="resultParameter" value="sum2" />
+	</bean>
+	
+	<bean id="activity3" class="it.inspired.wf.impl.DelegateActivity">
+		<property name="delegate" ref="calculator" />
+		<property name="method" value="mult" />
+		<property name="parameters">
+			<list>
+				<value>addendum1</value>
+				<value>addendum2</value>
+			</list>
+		</property>
+		<property name="resultParameter" value="mult" />
+	</bean>
+
+	<bean id="sequence" class="it.inspired.wf.impl.SequenceProcessor">
+		<property name="activities">
+			<list>
+				<ref bean="activity1" />
+				<ref bean="activity2" />
+			</list>
+		</property>
+		<property name="defaultErrorHandler" ref="defaultErrorHandler" />
+	</bean>
+	
+	<bean id="concurrent" class="it.inspired.wf.impl.ConcurrentProcessor">
+		<property name="activities">
+			<list>
+				<ref bean="activity1" />
+				<ref bean="activity3" />
+			</list>
+		</property>
+		<property name="defaultErrorHandler" ref="defaultErrorHandler" />
+	</bean>
+	
+	<bean id="workflow" class="it.inspired.wf.impl.WorkflowDefinition">
+		<property name="processors">
+			<list>
+				<ref bean="sequence" />
+				<ref bean="concurrent" />
+			</list>
+		</property>
+		<property name="defaultErrorHandler" ref="defaultErrorHandler" />
+	</bean>
+
+</beans>
