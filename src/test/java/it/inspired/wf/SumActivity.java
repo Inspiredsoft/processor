@@ -23,8 +23,25 @@ import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.WorkflowContext;
 import it.inspired.wf.impl.ConsoleExceptionHandler;
 
+/**
+ * An activity that gets two parameters from the workflow context (named addendum1 and addendum2)
+ * executes the sum operation and return the result into a new parameter in the context (named sum).
+ * 
+ * <pre>
+ * {@code
+ * sum = addendum1 + addendum2
+ * }
+ * </pre>
+ * 
+ * @author Massimo Romano
+ *
+ */
 public class SumActivity implements Activity {
 
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Activity#execute(it.inspired.wf.WorkflowContext)
+	 */
 	public WorkflowContext execute(WorkflowContext context) throws Exception {
 		Integer addendum1 = (Integer) context.get( "addendum1" );
 		Integer addendum2 = (Integer) context.get( "addendum2" );
@@ -34,6 +51,9 @@ public class SumActivity implements Activity {
 		return context;
 	}
 
+	/**
+	 * Return a console exception handler
+	 */
 	public ExceptionHandler getExceptionHandler() {
 		return new ConsoleExceptionHandler();
 	}

@@ -18,15 +18,15 @@
 
 package it.inspired.wf.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.inspired.wf.Activity;
 import it.inspired.wf.Processor;
 import it.inspired.wf.impl.ConcurrentProcessor;
 import it.inspired.wf.impl.DelegateActivity;
 import it.inspired.wf.impl.SequenceProcessor;
 import it.inspired.wf.impl.WorkflowDefinition;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
@@ -40,16 +40,16 @@ import org.w3c.dom.NodeList;
 
 public class WorkflowBeanDefinitionParser extends AbstractBeanDefinitionParser {
 	
-	private static final String ERROR_HANDLER_ATTRIBUTE = "errorHandler";
-	private static final String ID_ATTRIBUTE 			= "id";
-	private static final String NAME_ATTRIBUTE 			= "name";
-	private static final String CLASS_ATTRIBUTE 		= "class";
-	private static final String METHOD_ATTRIBUTE 		= "method";
-	private static final String RESULT_ATTRIBUTE 		= "result";
-	private static final String SEQUENCE_TAG 			= "sequence";
-	private static final String CONCURRENT_TAG 			= "concurrent";
-	private static final String ACTIVITY_TAG 			= "activity";
-	private static final String PARAMER_TAG 			= "parameter";
+	private static final String EXCEPTION_HANDLER_ATTRIBUTE = "exceptionHandler";
+	private static final String ID_ATTRIBUTE 				= "id";
+	private static final String NAME_ATTRIBUTE 				= "name";
+	private static final String CLASS_ATTRIBUTE 			= "class";
+	private static final String METHOD_ATTRIBUTE 			= "method";
+	private static final String RESULT_ATTRIBUTE 			= "result";
+	private static final String SEQUENCE_TAG 				= "sequence";
+	private static final String CONCURRENT_TAG 				= "concurrent";
+	private static final String ACTIVITY_TAG 				= "activity";
+	private static final String PARAMER_TAG 				= "parameter";
 
 	@Override
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
@@ -197,10 +197,10 @@ public class WorkflowBeanDefinitionParser extends AbstractBeanDefinitionParser {
 		String result = element.getAttribute( RESULT_ATTRIBUTE );
 		factory.addPropertyValue( "resultParameter", result );
 		
-		if ( element.hasAttribute( ERROR_HANDLER_ATTRIBUTE  ) ) {
-			String errorHandler = element.getAttribute( ERROR_HANDLER_ATTRIBUTE );
-			if ( errorHandler != null && !errorHandler.isEmpty()  ) {
-				factory.addPropertyValue( "errorHandler", Class.forName( errorHandler ).newInstance() );
+		if ( element.hasAttribute( EXCEPTION_HANDLER_ATTRIBUTE  ) ) {
+			String exceptionHandler = element.getAttribute( EXCEPTION_HANDLER_ATTRIBUTE );
+			if ( exceptionHandler != null && !exceptionHandler.isEmpty()  ) {
+				factory.addPropertyValue( "exceptionHandler", Class.forName( exceptionHandler ).newInstance() );
 			}
 		}
 		
@@ -231,7 +231,7 @@ public class WorkflowBeanDefinitionParser extends AbstractBeanDefinitionParser {
 	}
 	
 	/**
-	 * Parses the default attributes id, name and errorHandler
+	 * Parses the default attributes id, name and exceptionHandler
 	 * 
 	 * @param element Element to parse
 	 * @param factory Factory for the element to parse
@@ -244,10 +244,10 @@ public class WorkflowBeanDefinitionParser extends AbstractBeanDefinitionParser {
 		String name = element.getAttribute( NAME_ATTRIBUTE );
 		factory.addPropertyValue( NAME_ATTRIBUTE, name);
 		
-		if ( element.hasAttribute( ERROR_HANDLER_ATTRIBUTE  ) ) {
-			String errorHandler = element.getAttribute( ERROR_HANDLER_ATTRIBUTE );
-			if ( errorHandler != null && !errorHandler.isEmpty()  ) {
-				factory.addPropertyValue( "defaultErrorHandler", Class.forName( errorHandler ).newInstance() );
+		if ( element.hasAttribute( EXCEPTION_HANDLER_ATTRIBUTE  ) ) {
+			String exceptionHandler = element.getAttribute( EXCEPTION_HANDLER_ATTRIBUTE );
+			if ( exceptionHandler != null && !exceptionHandler.isEmpty()  ) {
+				factory.addPropertyValue( "defaultExceptionHandler", Class.forName( exceptionHandler ).newInstance() );
 			}
 		}
 		

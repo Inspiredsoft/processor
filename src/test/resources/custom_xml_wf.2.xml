@@ -8,7 +8,7 @@
     http://www.inspiredsoft.it/schema/workflow
     http://www.inspiredsoft.it/schema/workflow.xsd">
 
-	<wf:workflow id="workflow" name="Workflow" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
+	<wf:workflow id="workflow" name="Workflow" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
 		<wf:sequence id="sequence" name="Sequence process">
 			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum1">
 				<wf:parameter name="addendum1" />

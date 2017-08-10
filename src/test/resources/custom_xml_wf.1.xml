@@ -8,23 +8,23 @@
     http://www.inspiredsoft.it/schema/workflow
     http://www.inspiredsoft.it/schema/workflow.xsd">
 
-	<wf:workflow id="workflow" name="Workflow" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
-		<wf:sequence id="sequence" name="Sequence process" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
-			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum1" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
+	<wf:workflow id="workflow" name="Workflow" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
+		<wf:sequence id="sequence" name="Sequence process" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
+			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum1" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
 				<wf:parameter name="addendum1" />
 				<wf:parameter name="addendum2" />
 			</wf:activity>
-			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum2" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
+			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum2" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
 				<wf:parameter name="sum1" />
 				<wf:parameter name="sum1" />
 			</wf:activity>
 		</wf:sequence>
 		<wf:concurrent id="concurrent" name="Concurrent process" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
-			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum1" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
+			<wf:activity class="it.inspired.wf.Calculator" method="sum" result="sum1" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
 				<wf:parameter name="addendum1" />
 				<wf:parameter name="addendum2" />
 			</wf:activity>
-			<wf:activity class="it.inspired.wf.Calculator" method="mult" result="mult" errorHandler="it.inspired.wf.impl.ConsoleErrorHandler">
+			<wf:activity class="it.inspired.wf.Calculator" method="mult" result="mult" exceptionHandler="it.inspired.wf.impl.ConsoleExceptionHandler">
 				<wf:parameter name="addendum1" />
 				<wf:parameter name="addendum2" />
 			</wf:activity>

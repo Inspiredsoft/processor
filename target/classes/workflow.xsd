@@ -43,7 +43,7 @@
 			<xsd:attribute type="xsd:string" name="class" use="required" />
 			<xsd:attribute type="xsd:string" name="method" use="optional" />
 			<xsd:attribute type="xsd:string" name="result" use="optional" />
-			<xsd:attribute type="xsd:string" name="errorHandler" use="optional" />
+			<xsd:attribute type="xsd:string" name="exceptionHandler" use="optional" />
 		</xsd:complexType>
 	</xsd:element>
 
@@ -60,7 +60,7 @@
 							<xsd:attribute type="xsd:string" use="optional"
 								name="name" />
 							<xsd:attribute type="xsd:string" use="optional"
-								name="errorHandler" />
+								name="exceptionHandler" />
 						</xsd:complexType>
 					</xsd:element>
 					<xsd:element name="concurrent">
@@ -72,14 +72,14 @@
 							<xsd:attribute type="xsd:string" use="optional"
 								name="name" />
 							<xsd:attribute type="xsd:string" use="optional"
-								name="errorHandler" />
+								name="exceptionHandler" />
 						</xsd:complexType>
 					</xsd:element>
 				</xsd:choice>
 			</xsd:sequence>
 			<xsd:attribute type="xsd:ID" name="id" />
 			<xsd:attribute type="xsd:string" name="name" use="optional" />
-			<xsd:attribute type="xsd:string" name="errorHandler"
+			<xsd:attribute type="xsd:string" name="exceptionHandler"
 				use="optional" />
 		</xsd:complexType>
 	</xsd:element>
