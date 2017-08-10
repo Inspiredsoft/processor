@@ -38,6 +38,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Spring parser for the xml
+ * 
+ * @author Massimo Romano
+ *
+ */
 public class WorkflowBeanDefinitionParser extends AbstractBeanDefinitionParser {
 	
 	private static final String EXCEPTION_HANDLER_ATTRIBUTE = "exceptionHandler";
