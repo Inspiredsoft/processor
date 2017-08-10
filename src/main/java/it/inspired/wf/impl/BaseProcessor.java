@@ -19,47 +19,81 @@
 package it.inspired.wf.impl;
 
 import it.inspired.wf.Activity;
-import it.inspired.wf.ErrorHandler;
+import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.Processor;
 
 import java.util.List;
 
+/**
+ * Anstract class implementing the common features of a processor
+ * 
+ * @author Massimo Romano
+ *
+ */
 public abstract class BaseProcessor implements Processor {
 
 	private String id;
 	private String name;
 	protected List<? extends Activity> activities;
-	protected ErrorHandler defaultErrorHandler;
+	protected ExceptionHandler defaultExceptionHandler;
 	
 	//--------------------------------------------------------------------------------
 	
+	/**
+	 * Gets the unique processor identifier 
+	 * @return processor identifier
+	 */
 	public String getId() {
 		return id;
 	}
 	
+	/**
+	 * Sets the unique processor identifier
+	 * @param id processor identifier
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 	
+	/**
+	 * Gets the processor name
+	 * @return processor name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Sets the processor name
+	 * @param name processor name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}	
 	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Processor#setActivities(java.util.List)
+	 */
 	public void setActivities(List<? extends Activity> activities) {
 		this.activities = activities;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Processor#getDefaultExceptionHandler()
+	 */
 	@Override
-	public ErrorHandler getErrorHandler() {
-		return this.defaultErrorHandler;
+	public ExceptionHandler getDefaultExceptionHandler() {
+		return this.defaultExceptionHandler;
 	}
 
-	public void setDefaultErrorHandler(ErrorHandler defaultErrorHandler) {
-		this.defaultErrorHandler = defaultErrorHandler;
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Processor#setDefaultExceptionHandler(it.inspired.wf.ExceptionHandler)
+	 */
+	public void setDefaultExceptionHandler(ExceptionHandler defaultExceptionHandler) {
+		this.defaultExceptionHandler = defaultExceptionHandler;
 	}
 
 }

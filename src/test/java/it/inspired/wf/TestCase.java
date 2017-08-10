@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 import it.inspired.wf.WorkflowContext;
 import it.inspired.wf.impl.ConcurrentProcessor;
-import it.inspired.wf.impl.ConsoleErrorHandler;
+import it.inspired.wf.impl.ConsoleExceptionHandler;
 import it.inspired.wf.impl.DelegateActivity;
 import it.inspired.wf.impl.WorkflowManager;
 import it.inspired.wf.impl.SequenceProcessor;
@@ -65,7 +65,7 @@ public class TestCase {
 		
 		SequenceProcessor processor = new SequenceProcessor();
 		
-		processor.setDefaultErrorHandler( new ConsoleErrorHandler() );
+		processor.setDefaultExceptionHandler( new ConsoleExceptionHandler() );
 		
 		processor.setActivities( Arrays.asList( new SumActivity() ) );
 		
@@ -91,7 +91,7 @@ public class TestCase {
 		activity2.setResultParameter( "sum2" );
 		
 		SequenceProcessor processor = new SequenceProcessor();
-		processor.setDefaultErrorHandler( new ConsoleErrorHandler() );
+		processor.setDefaultExceptionHandler( new ConsoleExceptionHandler() );
 		processor.setActivities( Arrays.asList(  activity1, activity2 ) );
 		
 		processor.execute( context );
@@ -118,7 +118,7 @@ public class TestCase {
 		activity2.setResultParameter( "mult" );
 		
 		ConcurrentProcessor processor = new ConcurrentProcessor();
-		processor.setDefaultErrorHandler( new ConsoleErrorHandler() );
+		processor.setDefaultExceptionHandler( new ConsoleExceptionHandler() );
 		processor.setActivities( Arrays.asList(  activity1, activity2 ) );
 		
 		processor.execute( context );
@@ -158,7 +158,7 @@ public class TestCase {
 		concurrent.setActivities( Arrays.asList(  activity1, activity3 ) );
 		
 		WorkflowDefinition workflow = new WorkflowDefinition();
-		workflow.setDefaultErrorHandler( new ConsoleErrorHandler() );
+		workflow.setDefaultExceptionHandler( new ConsoleExceptionHandler() );
 		workflow.setProcessors( Arrays.asList(  sequence, concurrent ) );
 		
 		workflow.execute( context );

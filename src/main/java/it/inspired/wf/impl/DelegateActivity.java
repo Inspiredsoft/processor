@@ -19,62 +19,129 @@
 package it.inspired.wf.impl;
 
 import it.inspired.wf.Activity;
-import it.inspired.wf.ErrorHandler;
+import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.WorkflowContext;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+/**
+ * An workflow activity that can execute a method defined in a bean.
+ * 
+ * To define the action to execute inject an instance of the delegate object and define the method name to execute.
+ * Eventually the parameter name used to invoke the method can be defined as an ordered list of workflow item name.
+ * 
+ * <pre>
+ * {@code 
+ * DelegateActivity activity1 = new DelegateActivity();
+ * activity1.setDelegate( new Calculator() );
+ * activity1.setMethod( "sum" );
+ * activity1.setParameters( Arrays.asList( "addendum1", "addendum2") );
+ * activity1.setResultParameter( "sum1" );
+ * }
+ * </pre>
+ *  
+ * @author Massimo Romano
+ *
+ */
 public class DelegateActivity implements Activity {
-	private ErrorHandler errorHandler;		// Error handler
-	private Object delegate;				// Delegated object
-	private String method;					// Method to invoke
-	private List<String> parameters;		// Context parameter to use
-	private String resultParameter;			// Parameter to set result
+	private ExceptionHandler exceptionHandler;	// Exception handler
+	private Object delegate;					// Delegated object
+	private String method;						// Method to invoke
+	private List<String> parameters;			// Context parameter to use
+	private String resultParameter;				// Parameter to set result
 	
-	private Object[] parameterObjects;		// Parameter extracted from context
-	private Class<?>[] parameterTypes;		// Type of the parameter extracted from context
+	private Object[] parameterObjects;			// Parameter extracted from context
+	private Class<?>[] parameterTypes;			// Type of the parameter extracted from context
 	
 	//------------------------------------------------------------------
 	
+	/**
+	 * Gets the delegate object 
+	 * @return the delegate object
+	 */
 	public Object getDelegate() {
 		return delegate;
 	}
+	/**
+	 * Sets the delegate object
+	 * @param delegate the delegate object
+	 */
 	public void setDelegate(Object delegate) {
 		this.delegate = delegate;
 	}
 
+	/**
+	 * Gets the method name to execute
+	 * @return the method name
+	 */
 	public String getMethod() {
 		return method;
 	}
+	/**
+	 * Sets the method name to execute
+	 * @param method the method name
+	 */
 	public void setMethod(String method) {
 		this.method = method;
 	}
 
+	/**
+	 * Gets the parameters name used to invoke the method.
+	 * @return the parameters name
+	 */
 	public List<String> getParameters() {
 		return parameters;
 	}
+	/**
+	 * Sets the ordered parameters name used to invoke the method.
+	 * These names are used to get the invocation parameters from the Workflow context.
+	 * 
+	 * @param parameters the ordered parameters name
+	 */
 	public void setParameters(List<String> parameters) {
 		this.parameters = parameters;
 	}
 	
-	public void setErrorHandler( ErrorHandler errorHandler ) {
-		this.errorHandler = errorHandler;
-	}
-	public ErrorHandler getErrorHandler() {
-		return errorHandler;
+	/**
+	 * Sets the error handler
+	 * @param errorHandler the error handler
+	 */
+	public void setExceptionHandler( ExceptionHandler exceptionHandler ) {
+		this.exceptionHandler = exceptionHandler;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Activity#getExceptionHandler()
+	 */
+	public ExceptionHandler getExceptionHandler() {
+		return exceptionHandler;
+	}
+	
+	/**
+	 * Gets the name to use to inject the resulting invocation value into the workflow context
+	 * @return the name of the resulting workflow name
+	 */
 	public String getResultParameter() {
 		return resultParameter;
 	}
+	/**
+	 * Sets the name to use to inject the resulting invocation value into the workflow context
+	 * @param resultParameter the name of the resulting workflow name
+	 */
 	public void setResultParameter(String resultParameter) {
 		this.resultParameter = resultParameter;
 	}
 	
 	//------------------------------------------------------------------
 	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Activity#execute(it.inspired.wf.WorkflowContext)
+	 * 
+	 */
 	public WorkflowContext execute( WorkflowContext context ) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
 		if ( this.method == null || this.method.isEmpty() ) {
@@ -95,6 +162,10 @@ public class DelegateActivity implements Activity {
 	
 	//------------------------------------------------------------------
 	
+	/**
+	 * Extract the parameter value from the workflow context 
+	 * @param context
+	 */
 	private void buildParameterList( WorkflowContext context ) {
 		this.parameterObjects = new Object[this.parameters.size()];
 		this.parameterTypes = new Class<?>[this.parameters.size()];
@@ -112,6 +183,10 @@ public class DelegateActivity implements Activity {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		return this.resultParameter + "=" + this.method + "(" + this.parameters + ")";
 	}

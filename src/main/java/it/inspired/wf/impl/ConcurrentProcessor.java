@@ -19,7 +19,7 @@
 package it.inspired.wf.impl;
 
 import it.inspired.wf.Activity;
-import it.inspired.wf.ErrorHandler;
+import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.WorkflowContext;
 
 import java.util.HashSet;
@@ -31,10 +31,20 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * Executes actovities in parrallel
+ * 
+ * @author Massimo Romano
+ *
+ */
 public class ConcurrentProcessor extends BaseProcessor {
 	
 	private static final CompletionService<Boolean> compService = new ExecutorCompletionService<Boolean>( Executors.newFixedThreadPool( 10 ) );
 
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Processor#execute(it.inspired.wf.WorkflowContext)
+	 */
 	public WorkflowContext execute(WorkflowContext context) {
 		Set<Future<Boolean>> futures = new HashSet<Future<Boolean>>();
 		for ( Activity activity : activities ) {
@@ -83,11 +93,11 @@ public class ConcurrentProcessor extends BaseProcessor {
 			try {
 				context = activity.execute( context );
 			 } catch (Throwable th) {
-				 ErrorHandler errorHandler = activity.getErrorHandler();
+				 ExceptionHandler errorHandler = activity.getExceptionHandler();
 				 if ( errorHandler != null ) {
-					 result = errorHandler.handleError(context, th);
-				 } else if ( defaultErrorHandler != null ) {
-					 result = defaultErrorHandler.handleError(context, th);
+					 result = errorHandler.handleException(context, th);
+				 } else if ( defaultExceptionHandler != null ) {
+					 result = defaultExceptionHandler.handleException(context, th);
 				 } else {
 					 throw new RuntimeException( th );
 				 }

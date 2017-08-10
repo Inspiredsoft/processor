@@ -20,6 +20,12 @@ package it.inspired.wf;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * A workflow context is a HashMap containing the variable used by a workflow
+ * 
+ * @author Massimo Romano
+ *
+ */
 public class WorkflowContext extends ConcurrentHashMap<String,Object> {
 
 	private static final long serialVersionUID = 6678368304009234339L;

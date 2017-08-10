@@ -18,68 +18,102 @@
 
 package it.inspired.wf.impl;
 
-import it.inspired.wf.ErrorHandler;
-import it.inspired.wf.WorkflowContext;
+import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.Processor;
 import it.inspired.wf.Workflow;
+import it.inspired.wf.WorkflowContext;
 
 import java.util.List;
 
+/**
+ * Implements a workflow according to the interface {@link Workflow}.
+ * 
+ * @author Massimo Romano
+ *
+ */
 public class WorkflowDefinition implements Workflow {
 
 	private String id;
 	private String name;
 	private List<? extends Processor> processors;
-	private ErrorHandler defaultErrorHandler;
+	private ExceptionHandler defaultExceptionHandler;
 	
 	//--------------------------------------------------------------------------------
 	
+	/**
+	 * Gets the unique workflow identifier 
+	 * @return workflow identifier
+	 */
 	public String getId() {
 		return id;
 	}
 	
+	/**
+	 * Sets the unique workflow identifier
+	 * @param id workflow identifier
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 	
+	/**
+	 * Gets the workflow name
+	 * @return workflow name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Sets the workflow name
+	 * @param name workflow name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}	
 
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Workflow#setProcessors(java.util.List)
+	 */
 	@Override
 	public void setProcessors(List<? extends Processor> processors) {
 		this.processors = processors;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Workflow#setDefaultErrorHandler(it.inspired.wf.ErrorHandler)
+	 */
 	@Override
-	public void setDefaultErrorHandler(ErrorHandler defaultErrorHandler) {
-		this.defaultErrorHandler = defaultErrorHandler;
+	public void setDefaultExceptionHandler(ExceptionHandler defaultExceptionHandler) {
+		this.defaultExceptionHandler = defaultExceptionHandler;
 	}
 
 	//--------------------------------------------------------------------------------
 	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Workflow#execute(it.inspired.wf.WorkflowContext)
+	 */
 	@Override
-	public void execute(WorkflowContext context) {
+	public WorkflowContext execute(WorkflowContext context) {
 		
 		if ( processors == null || processors.isEmpty() ) {
-			throw new RuntimeException( "No processors defined" );
+			throw new RuntimeException( "No processor defined" );
 		}
 		
 		for ( Processor processor : processors ) {
 			try {
 				context = processor.execute( context );
 			 } catch (Throwable th) {
-				 ErrorHandler errorHandler = processor.getErrorHandler();
+				 ExceptionHandler errorHandler = processor.getDefaultExceptionHandler();
 				 if ( errorHandler != null ) {
-					 if ( errorHandler.handleError(context, th) ) {
+					 if ( errorHandler.handleException(context, th) ) {
 						 break;
 					 }
-				 } else if ( defaultErrorHandler != null ) {
-					 if ( defaultErrorHandler.handleError(context, th) ) {
+				 } else if ( defaultExceptionHandler != null ) {
+					 if ( defaultExceptionHandler.handleException(context, th) ) {
 						 break;
 					 }
 				 } else {
@@ -87,5 +121,7 @@ public class WorkflowDefinition implements Workflow {
 				 }
 			 }
 		}
+		
+		return context;
 	}
 }

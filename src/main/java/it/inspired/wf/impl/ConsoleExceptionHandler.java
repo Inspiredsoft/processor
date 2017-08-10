@@ -16,14 +16,34 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.    
 *******************************************************************************/
 
-package it.inspired.wf;
+package it.inspired.wf.impl;
 
-public interface ErrorHandler {
-	/**
-	 * Manage the error
-	 * @param context
-	 * @param th
-	 * @return If true the execution is stopped
+import it.inspired.wf.ExceptionHandler;
+import it.inspired.wf.WorkflowContext;
+
+/**
+ * implements an exception handler the print the stack trace to the console error
+ *  
+ * @author Massimo Romano
+ *
+ */
+public class ConsoleExceptionHandler implements ExceptionHandler {
+	
+	/* Define if the error should stop the execution */
+	public boolean stopOnError = false;
+	
+	public ConsoleExceptionHandler(){}
+	
+	public ConsoleExceptionHandler( boolean stopOnError ){
+		this.stopOnError = stopOnError;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.ErrorHandler#handleError(it.inspired.wf.WorkflowContext, java.lang.Throwable)
 	 */
-	public boolean handleError(WorkflowContext context, Throwable th);
+	public boolean handleException(WorkflowContext context, Throwable th) {
+		th.printStackTrace();
+		return true;
+	}
 }

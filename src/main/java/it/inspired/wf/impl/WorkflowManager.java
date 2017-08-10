@@ -26,29 +26,56 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * Implements a workflow manager that gets the workflow definition in an xml
+ * 
+ * @author Massimo Romano
+ *
+ */
 public class WorkflowManager {
 	private ApplicationContext springContext;
 	private WorkflowContext context = new WorkflowContext();
 	
 	public static Logger logger = Logger.getLogger( WorkflowManager.class );
 	
-	public static WorkflowManager load( String descriptor ) {
-		logger.debug( "Loading descriptor " + descriptor );
+	/**
+	 * Load all the workflow definitions defined in an xml in the classpath
+	 * @param definitionLocation location of the xml 
+	 * @return
+	 */
+	public static WorkflowManager load( String definitionLocation ) {
+		logger.debug( "Loading descriptor " + definitionLocation );
 		
 		WorkflowManager wf = new WorkflowManager();
-		wf.springContext = new ClassPathXmlApplicationContext(descriptor);
+		wf.springContext = new ClassPathXmlApplicationContext(definitionLocation);
 		return wf;
 	}
 	
+	/**
+	 * Add a parameter in the workflow context
+	 * @param key parameter name
+	 * @param value parameter value
+	 */
 	public void addContextParameter( String key, Object value ) {
 		context.put( key, value );
 		logger.debug( "Added parameter " + key + "(" + value + ") to context" );
 	}
 	
+	/**
+	 * Gets a workflow parameter value
+	 * @param key parameter name 
+	 * @return parameter value
+	 */
 	public Object getContextParameter( String key ) {
 		return context.get( key );
 	}
 	
+	/**
+	 * Executes the worklfow definition specified.
+	 * The definition can be a simple processor {@see Processor} or a complex workflow {@see Workflow}
+	 * 
+	 * @param name the workflow definition to execute
+	 */
 	public void execute( String name ) {
 		Object bean = springContext.getBean( name );
 		

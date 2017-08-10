@@ -18,7 +18,26 @@
 
 package it.inspired.wf;
 
+/**
+ * Represents a activity involved in a workflow.
+ * 
+ * @author Massimo Romano
+ *
+ */
 public interface Activity {
-	public ErrorHandler getErrorHandler();
+	/**
+	 * Return the handler defined to manage an exception {@link ExceptionHandler}.
+	 * 
+	 * @return The defined exception handler
+	 */
+	public ExceptionHandler getExceptionHandler();
+	
+	/**
+	 * Execute the activity.
+	 * 
+	 * @param context The workflow context 
+	 * @return The resulting workflow context
+	 * @throws Exception Any kind of exception 
+	 */
 	public WorkflowContext execute( WorkflowContext context ) throws Exception;
 }

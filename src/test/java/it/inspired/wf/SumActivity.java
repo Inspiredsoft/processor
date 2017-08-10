@@ -19,9 +19,9 @@
 package it.inspired.wf;
 
 import it.inspired.wf.Activity;
-import it.inspired.wf.ErrorHandler;
+import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.WorkflowContext;
-import it.inspired.wf.impl.ConsoleErrorHandler;
+import it.inspired.wf.impl.ConsoleExceptionHandler;
 
 public class SumActivity implements Activity {
 
@@ -34,8 +34,8 @@ public class SumActivity implements Activity {
 		return context;
 	}
 
-	public ErrorHandler getErrorHandler() {
-		return new ConsoleErrorHandler();
+	public ExceptionHandler getExceptionHandler() {
+		return new ConsoleExceptionHandler();
 	}
 	
 }

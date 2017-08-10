@@ -16,14 +16,21 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.    
 *******************************************************************************/
 
-package it.inspired.wf.impl;
+package it.inspired.wf;
 
-import it.inspired.wf.ErrorHandler;
-import it.inspired.wf.WorkflowContext;
-
-public class ConsoleErrorHandler implements ErrorHandler {
-	public boolean handleError(WorkflowContext context, Throwable th) {
-		th.printStackTrace();
-		return true;
-	}
+/**
+ * Represents an handler used to manage an exception raised during a workflow execution.
+ * 
+ * @author Massimo Romano
+ *
+ */
+public interface ExceptionHandler {
+	/**
+	 * Handle an exception
+	 * 
+	 * @param context The workflow context associated to the error
+	 * @param th The exception to manage
+	 * @return If true the execution is stopped
+	 */
+	public boolean handleException(WorkflowContext context, Throwable th);
 }

@@ -19,7 +19,7 @@
 package it.inspired.wf.impl;
 
 import it.inspired.wf.Activity;
-import it.inspired.wf.ErrorHandler;
+import it.inspired.wf.ExceptionHandler;
 import it.inspired.wf.WorkflowContext;
 
 /**
@@ -30,18 +30,22 @@ import it.inspired.wf.WorkflowContext;
  */
 public class SequenceProcessor extends BaseProcessor {
 
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Processor#execute(it.inspired.wf.WorkflowContext)
+	 */
 	public WorkflowContext execute(WorkflowContext context) {
 		for ( Activity activity : activities ) {
 			try {
 				context = activity.execute( context );
 			 } catch (Throwable th) {
-				 ErrorHandler errorHandler = activity.getErrorHandler();
+				 ExceptionHandler errorHandler = activity.getExceptionHandler();
 				 if ( errorHandler != null ) {
-					 if ( errorHandler.handleError(context, th) ) {
+					 if ( errorHandler.handleException(context, th) ) {
 						 break;
 					 }
-				 } else if ( defaultErrorHandler != null ) {
-					 if ( defaultErrorHandler.handleError(context, th) ) {
+				 } else if ( defaultExceptionHandler != null ) {
+					 if ( defaultExceptionHandler.handleException(context, th) ) {
 						 break;
 					 }
 				 } else {

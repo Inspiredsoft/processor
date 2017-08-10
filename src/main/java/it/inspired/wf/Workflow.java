@@ -20,8 +20,34 @@ package it.inspired.wf;
 
 import java.util.List;
 
+/**
+ * This interface represents a workflow.
+ * 
+ * A workflow is made of an ordered list of processor {@link Processor} that are executed in the given order.
+ * 
+ * @author Massimo Romano
+ *
+ */
 public interface Workflow {
+	/**
+	 * Sets the processors composing the workflow
+	 *  
+	 * @param processors An ordered list of {@link Processor}
+	 */
 	public void setProcessors(List<? extends Processor> processors);
-	public void setDefaultErrorHandler(ErrorHandler defaultErrorHandler);
-	public void execute( WorkflowContext context );
+	
+	/**
+	 * Sets the default error handler that is used to manage an error raised during the execution.
+	 * 
+	 * @param defaultErrorHandler The default error handler {@link ExceptionHandler}
+	 */
+	public void setDefaultExceptionHandler(ExceptionHandler defaultExceptionHandler);
+	
+	/**
+	 * Execute all the processor included in the workflow in the specified order.
+	 * 
+	 * @param context The starting workflow context {@link WorkflowContext}
+	 * @return The resulting workflow context
+	 */
+	public WorkflowContext execute( WorkflowContext context );
 }
