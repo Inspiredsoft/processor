@@ -18,9 +18,7 @@
 
 package it.inspired.wf.impl;
 
-import org.apache.log4j.Logger;
-
-import it.inspired.wf.WorkflowContext;
+import it.inspired.wf.Workflow;
 
 /**
  * Implements a workflow manager that execute a workflow 
@@ -28,28 +26,23 @@ import it.inspired.wf.WorkflowContext;
  * @author Massimo Romano
  *
  */
-public abstract class WorkflowManager {
-	
-	protected static Logger logger = Logger.getLogger( WorkflowManager.class );
-	
-	protected WorkflowContext context = new WorkflowContext();
+public class GenericWorkflowManager extends WorkflowManager {
+
+	private Workflow workflow;
 	
 	/**
-	 * Add a parameter in the workflow context
-	 * @param key parameter name
-	 * @param value parameter value
+	 * Generate a new workflow manager for the given workflow definition
+	 * 
+	 * @param workflow
 	 */
-	public void addContextParameter( String key, Object value ) {
-		context.put( key, value );
-		logger.debug( "Added parameter " + key + "(" + value + ") to context" );
+	public GenericWorkflowManager(Workflow workflow) {
+		this.workflow = workflow;
 	}
 	
 	/**
-	 * Gets a workflow parameter value
-	 * @param key parameter name 
-	 * @return parameter value
+	 * Execute the workflow
 	 */
-	public Object getContextParameter( String key ) {
-		return context.get( key );
+	public void execute() {
+		workflow.execute(context);
 	}
 }

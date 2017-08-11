@@ -19,7 +19,7 @@
 package it.inspired.wf;
 
 import static org.junit.Assert.assertEquals;
-import it.inspired.wf.impl.WorkflowManager;
+import it.inspired.wf.impl.XmlWorkflowManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class TestXml {
 	public void testSequenceProcessor() {
 		System.out.println( "Start testSequenceProcessor" );
 		
-		WorkflowManager wf = WorkflowManager.load( "workflow.xml" );
+		XmlWorkflowManager wf = XmlWorkflowManager.load( "workflow.xml" );
 		
 		wf.addContextParameter( "addendum1", addendum1 ); 
 		wf.addContextParameter( "addendum2", addendum2 ); 
@@ -57,7 +57,7 @@ public class TestXml {
 	public void testConcurrentProcessor() {
 		System.out.println( "Start testConcurrentProcessor" );
 		
-		WorkflowManager wf = WorkflowManager.load( "workflow.xml" );
+		XmlWorkflowManager wf = XmlWorkflowManager.load( "workflow.xml" );
 		
 		wf.addContextParameter( "addendum1", addendum1 ); 
 		wf.addContextParameter( "addendum2", addendum2 ); 
@@ -72,7 +72,7 @@ public class TestXml {
 	public void testWorkflow() {
 		System.out.println( "Start testWorkflow" );
 		
-		WorkflowManager wf = WorkflowManager.load( "workflow.xml" );
+		XmlWorkflowManager wf = XmlWorkflowManager.load( "workflow.xml" );
 		
 		wf.addContextParameter( "addendum1", addendum1 ); 
 		wf.addContextParameter( "addendum2", addendum2 ); 
@@ -87,7 +87,7 @@ public class TestXml {
 	public void testCustomXml1() {
 		System.out.println( "Start testCustomXml1" );
 		
-		WorkflowManager wf = WorkflowManager.load( "custom_xml_wf.1.xml" );
+		XmlWorkflowManager wf = XmlWorkflowManager.load( "custom_xml_wf.1.xml" );
 		
 		wf.addContextParameter( "addendum1", addendum1 ); 
 		wf.addContextParameter( "addendum2", addendum2 ); 
@@ -103,7 +103,7 @@ public class TestXml {
 	public void testCustomXml2() {
 		System.out.println( "Start testCustomXml2" );
 		
-		WorkflowManager wf = WorkflowManager.load( "custom_xml_wf.2.xml" );
+		XmlWorkflowManager wf = XmlWorkflowManager.load( "custom_xml_wf.2.xml" );
 		
 		wf.addContextParameter( "addendum1", addendum1 ); 
 		wf.addContextParameter( "addendum2", addendum2 ); 
