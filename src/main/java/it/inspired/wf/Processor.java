@@ -46,7 +46,7 @@ public interface Processor {
 	/**
 	 * Sets the default exception handler that is used to manage an error raised during the execution of an activity.
 	 * 
-	 * @param defaultErrorHandler The default error handler {@link ExceptionHandler}
+	 * @param defaultExceptionHandler The default error handler {@link ExceptionHandler}
 	 */
 	public void setDefaultExceptionHandler(ExceptionHandler defaultExceptionHandler);
 	

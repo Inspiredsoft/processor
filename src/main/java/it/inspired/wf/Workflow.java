@@ -37,9 +37,16 @@ public interface Workflow {
 	public void setProcessors(List<? extends Processor> processors);
 	
 	/**
+	 * Gets the processors composing the workflow
+	 * 
+	 * @return the processors 
+	 */
+	public List<? extends Processor> getProcessors();
+	
+	/**
 	 * Sets the default error handler that is used to manage an error raised during the execution.
 	 * 
-	 * @param defaultErrorHandler The default error handler {@link ExceptionHandler}
+	 * @param defaultExceptionHandler The default error handler {@link ExceptionHandler}
 	 */
 	public void setDefaultExceptionHandler(ExceptionHandler defaultExceptionHandler);
 	

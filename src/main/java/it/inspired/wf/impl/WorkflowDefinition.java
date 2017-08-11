@@ -80,6 +80,15 @@ public class WorkflowDefinition implements Workflow {
 	public void setProcessors(List<? extends Processor> processors) {
 		this.processors = processors;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see it.inspired.wf.Workflow#getProcessors()
+	 */
+	@Override
+	public List<? extends Processor> getProcessors() {
+		return this.processors;
+	}
 
 	/*
 	 * (non-Javadoc)

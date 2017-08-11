@@ -41,7 +41,7 @@ public class WorkflowManager {
 	/**
 	 * Load all the workflow definitions defined in an xml in the classpath
 	 * @param definitionLocation location of the xml 
-	 * @return
+	 * @return The workflow manager that manage all the defined workflow definition
 	 */
 	public static WorkflowManager load( String definitionLocation ) {
 		logger.debug( "Loading descriptor " + definitionLocation );
@@ -72,7 +72,7 @@ public class WorkflowManager {
 	
 	/**
 	 * Executes the worklfow definition specified.
-	 * The definition can be a simple processor {@see Processor} or a complex workflow {@see Workflow}
+	 * The definition can be a simple processor {@link Processor} or a complex workflow {@link Workflow}
 	 * 
 	 * @param name the workflow definition to execute
 	 */

@@ -30,7 +30,7 @@ import java.util.List;
  * @author Massimo Romano
  *
  */
-public abstract class BaseProcessor implements Processor {
+public abstract class AbstractProcessor implements Processor {
 
 	private String id;
 	private String name;

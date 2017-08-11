@@ -106,7 +106,7 @@ public class DelegateActivity implements Activity {
 	
 	/**
 	 * Sets the error handler
-	 * @param errorHandler the error handler
+	 * @param exceptionHandler the error handler
 	 */
 	public void setExceptionHandler( ExceptionHandler exceptionHandler ) {
 		this.exceptionHandler = exceptionHandler;

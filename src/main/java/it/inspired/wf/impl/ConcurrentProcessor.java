@@ -37,7 +37,7 @@ import java.util.concurrent.Future;
  * @author Massimo Romano
  *
  */
-public class ConcurrentProcessor extends BaseProcessor {
+public class ConcurrentProcessor extends AbstractProcessor {
 	
 	private static final CompletionService<Boolean> compService = new ExecutorCompletionService<Boolean>( Executors.newFixedThreadPool( 10 ) );
 

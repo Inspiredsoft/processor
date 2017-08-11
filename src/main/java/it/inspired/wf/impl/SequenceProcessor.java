@@ -28,7 +28,7 @@ import it.inspired.wf.WorkflowContext;
  * @author Massimo Romano
  *
  */
-public class SequenceProcessor extends BaseProcessor {
+public class SequenceProcessor extends AbstractProcessor {
 
 	/*
 	 * (non-Javadoc)
